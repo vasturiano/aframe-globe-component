@@ -167,24 +167,15 @@ Install and use by directly including the [browser files](dist):
 ```html
 <head>
   <title>My A-Frame Scene</title>
-  <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+  <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
   <script src="https://unpkg.com/aframe-globe-component/dist/aframe-globe-component.min.js"></script>
 </head>
 
 <body>
   <a-scene>
-    <a-camera></a-camera>
     <a-entity globe="points-data: [{ lat: 9.2, lng: 49.37 }, { lat: 23, lng: -125.4 }]"></a-entity>
   </a-scene>
 </body>
-```
-
-Or with [angle](https://npmjs.com/package/angle/), you can install the proper
-version of the component straight into your HTML file, respective to your
-version of A-Frame:
-
-```sh
-angle install aframe-globe-component
 ```
 
 #### npm

@@ -3,18 +3,18 @@ require('aframe');
 require('../index.js');
 var entityFactory = require('./helpers').entityFactory;
 
-suite('forcegraph component', function () {
+suite('globe component', function () {
   var component;
   var el;
 
   setup(function (done) {
     el = entityFactory();
     el.addEventListener('componentinitialized', function (evt) {
-      if (evt.detail.name !== 'forcegraph') { return; }
-      component = el.components['forcegraph'];
+      if (evt.detail.name !== 'globe') { return; }
+      component = el.components['globe'];
       done();
     });
-    el.setAttribute('forcegraph', {});
+    el.setAttribute('globe', {});
   });
 
   suite('foo property', function () {
