@@ -11,7 +11,7 @@ suite('globe component', function () {
     el = entityFactory();
     el.addEventListener('componentinitialized', function (evt) {
       if (evt.detail.name !== 'globe') { return; }
-      component = el.components['globe'];
+      component = el.components.globe;
       done();
     });
     el.setAttribute('globe', {});
