@@ -4,15 +4,15 @@
     <meta charset="utf-8">
     <title>A-Frame 3D Globe Component Example</title>
     <meta name="description" content="Example for 3D Globe component."></meta>
-    <script src="https://unpkg.com/aframe"></script>
-    <script src="../../dist/aframe-globe-component.min.js"></script>
+    <script src="//unpkg.com/aframe"></script>
+    <script src="../../dist/aframe-globe-component.js"></script>
   </head>
   <body>
     <a-scene stats>
-      <a-camera wasd-controls="fly: true; acceleration: 600">
+      <a-camera position="0 0 250" wasd-controls="fly: true; acceleration: 6000">
         <a-cursor color="lavender" opacity="0.5"></a-cursor>
       </a-camera>
-      <a-sky color="#002"></a-sky>
+      <a-sky color="#001"></a-sky>
 
       <a-entity id="globe"></a-entity>
     </a-scene>
@@ -28,7 +28,13 @@
       }));
 
       const globeEntity = document.getElementById('globe');
-      globeEntity.setAttribute('globe', `pointsData: ${JSON.stringify(gData)};globe-image-url: //unpkg.com/three-globe/example/img/earth-dark.jpg; bump-image-url: //unpkg.com/three-globe/example/img/earth-topology.png; pointAltitude: size; pointColor: color;`)
+      globeEntity.setAttribute('globe', `
+        pointsData: ${JSON.stringify(gData)};
+        globe-image-url: //unpkg.com/three-globe/example/img/earth-dark.jpg;
+        bump-image-url: //unpkg.com/three-globe/example/img/earth-topology.png;
+        pointAltitude: size;
+        pointColor: color;
+      `);
     </script>
 
     <!-- GitHub Corner. -->
