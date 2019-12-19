@@ -301,12 +301,14 @@ AFRAME.registerComponent('globe', {
       this.state.cameraObj
     );
 
-    var intersects = centerRaycaster.intersectObjects(this.globe.children)
+    var intersects = centerRaycaster.intersectObjects(this.globe.children, true)
+      .map(function(o) { return o.object; })
+      .map(getGlobeObj)
       .filter(function (o) { // Check only globe data layer objects
-        return o.object.__globeObjType && ['globe', 'atmosphere'].indexOf(o.object.__globeObjType) === -1;
+        return o.__globeObjType && ['globe', 'atmosphere'].indexOf(o.__globeObjType) === -1;
       });
 
-    var topObject = intersects.length ? intersects[0].object : null;
+    var topObject = intersects.length ? intersects[0] : null;
 
     if (topObject !== this.state.hoverObj) {
       this.data.onCenterHover(formatObj(topObject), formatObj(this.state.hoverObj));
@@ -317,6 +319,11 @@ AFRAME.registerComponent('globe', {
     }
 
     //
+
+    function getGlobeObj (obj) {
+      // recursively find globe object from parent chain
+      return !obj.parent || obj.__globeObjType ? obj : getGlobeObj(obj.parent);
+    }
 
     function formatObj (obj) {
       return !obj ? obj : { type: obj.__globeObjType, data: obj.__data };
