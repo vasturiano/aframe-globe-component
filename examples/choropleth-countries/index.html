@@ -17,7 +17,9 @@
       </a-camera>
       <a-sky color="#001"></a-sky>
 
-      <a-entity id="globe"></a-entity>
+      <a-entity id="globe" globe="
+        globe-image-url: //unpkg.com/three-globe/example/img/earth-night.jpg;
+      "></a-entity>
     </a-scene>
 
     <script>
@@ -31,20 +33,17 @@
         const maxVal = Math.max(...countries.features.map(getVal));
         colorScale.domain([0, maxVal]);
 
-        countries.features.forEach(feat => feat.color = colorScale(getVal(feat)));
-
         const globeEntity = document.getElementById('globe');
-        globeEntity.setAttribute('globe', `
-          globe-image-url: //unpkg.com/three-globe/example/img/earth-night.jpg;
-          polygons-data: ${JSON.stringify(countries.features).replace(/;/g, ',')};
-          polygon-altitude: 0.06;
-          polygon-side-color: () => 'rgba(0, 100, 0, 0.15)';
-          polygon-stroke-color: () => '#111';
-          polygon-cap-color: 'color';
-          polygons-transition-duration: 300;
-          label: ({ data: { data: { properties: d }}}) => \`\${d.ADMIN} (\${d.ISO_A2})\`;
-          desc: ({ data: { data: { properties: d }}}) => \`GDP: \${d.GDP_MD_EST} M$, Population: \${d.POP_EST}\`;
-        `);
+        globeEntity.setAttribute('globe', {
+          polygonsData: countries.features,
+          polygonAltitude: 0.06,
+          polygonSideColor: () => 'rgba(0, 100, 0, 0.15)',
+          polygonStrokeColor: () => '#111',
+          polygonCapColor: feat => colorScale(getVal(feat)),
+          polygonsTransitionDuration: 300,
+          label: ({ data: { data: { properties: d }}}) => `${d.ADMIN} (${d.ISO_A2})`,
+          desc: ({ data: { data: { properties: d }}}) => `GDP: ${d.GDP_MD_EST} M$, Population: ${d.POP_EST}`
+        });
       });
     </script>
 
