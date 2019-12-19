@@ -5,17 +5,17 @@
     <title>A-Frame 3D Globe Component Example</title>
     <meta name="description" content="Example for 3D Globe component."></meta>
 
-    <script src="//cdn.jsdelivr.net/npm/d3"></script>
+    <script src="//unpkg.com/d3"></script>
 
-    <script src="https://unpkg.com/aframe"></script>
-    <script src="../../dist/aframe-globe-component.min.js"></script>
+    <script src="//unpkg.com/aframe"></script>
+    <script src="../../dist/aframe-globe-component.js"></script>
   </head>
   <body>
     <a-scene stats>
-      <a-camera wasd-controls="fly: true; acceleration: 600">
+      <a-camera position="0 0 250" wasd-controls="fly: true; acceleration: 2000">
         <a-cursor color="lavender" opacity="0.5"></a-cursor>
       </a-camera>
-      <a-sky color="#002"></a-sky>
+      <a-sky color="#001"></a-sky>
 
       <a-entity id="globe"></a-entity>
     </a-scene>
@@ -31,28 +31,21 @@
         const maxVal = Math.max(...countries.features.map(getVal));
         colorScale.domain([0, maxVal]);
 
+        countries.features.forEach(feat => feat.color = colorScale(getVal(feat)));
+
         const globeEntity = document.getElementById('globe');
         globeEntity.setAttribute('globe', `
           globe-image-url: //unpkg.com/three-globe/example/img/earth-night.jpg;
-          polygons-data: ${JSON.stringify(countries.features)};
+          polygons-data: ${JSON.stringify(countries.features).replace(/;/g, ',')};
           polygon-altitude: 0.06;
-          polygon-cap-color: feat => colorScale(getVal(feat));
           polygon-side-color: () => 'rgba(0, 100, 0, 0.15)';
           polygon-stroke-color: () => '#111';
-          label: ({ data: { properties: d } }) => \`
-            <b>${d.ADMIN} (${d.ISO_A2}):</b> <br />
-            GDP: <i>${d.GDP_MD_EST}</i> M$<br/>
-            Population: <i>${d.POP_EST}</i>
-          \`;
-          on-center-hover: ({ data: hoverD }) => world
-            .polygonAltitude(d => d === hoverD ? 0.12 : 0.06)
-            .polygonCapColor(d => d === hoverD ? 'steelblue' : colorScale(getVal(d)));
+          polygon-cap-color: 'color';
           polygons-transition-duration: 300;
+          label: ({ data: { data: { properties: d }}}) => \`\${d.ADMIN} (\${d.ISO_A2})\`;
+          desc: ({ data: { data: { properties: d }}}) => \`GDP: \${d.GDP_MD_EST} M$, Population: \${d.POP_EST}\`;
         `);
       });
-
-      const globeEntity = document.getElementById('globe');
-      globeEntity.setAttribute('globe', `pointsData: ${JSON.stringify(gData)};globe-image-url: //unpkg.com/three-globe/example/img/earth-dark.jpg; bump-image-url: //unpkg.com/three-globe/example/img/earth-topology.png; pointAltitude: size; pointColor: color;`)
     </script>
 
     <!-- GitHub Corner. -->
