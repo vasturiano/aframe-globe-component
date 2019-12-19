@@ -42,7 +42,10 @@
           polygonCapColor: feat => colorScale(getVal(feat)),
           polygonsTransitionDuration: 300,
           label: ({ data: { data: { properties: d }}}) => `${d.ADMIN} (${d.ISO_A2})`,
-          desc: ({ data: { data: { properties: d }}}) => `GDP: ${d.GDP_MD_EST} M$, Population: ${d.POP_EST}`
+          desc: ({ data: { data: { properties: d }}}) => `GDP: ${d.GDP_MD_EST} M$, Population: ${d.POP_EST}`,
+          onCenterHover: hoverD => globeEntity
+            .setAttribute('globe', 'polygonAltitude', d => (hoverD && d === hoverD.data) ? 0.12 : 0.06)
+            .setAttribute('globe', 'polygonCapColor', d => (hoverD && d === hoverD.data) ? 'steelblue' : colorScale(getVal(d)))
         });
       });
     </script>
