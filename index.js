@@ -12,7 +12,14 @@ if (ThreeGlobe.hasOwnProperty('default')) {
   ThreeGlobe = ThreeGlobe.default;
 }
 
+var parseJson = function (prop) {
+  return (typeof prop === 'string')
+    ? JSON.parse(prop)
+    : prop; // already parsed
+};
+
 var parseFn = function (prop) {
+  if (typeof prop === 'function') return prop; // already a function
   var geval = eval; // Avoid using eval directly https://github.com/rollup/rollup/wiki/Troubleshooting#avoiding-eval
   try {
     var evalled = geval('(' + prop + ')');
@@ -39,7 +46,7 @@ AFRAME.registerComponent('globe', {
     bumpImageUrl: { type: 'string', default: '' },
     showAtmosphere: { type: 'boolean', default: true },
     showGraticules: { type: 'boolean', default: false },
-    pointsData: { parse: JSON.parse, default: '[]' },
+    pointsData: { parse: parseJson, default: '[]' },
     pointLat: { parse: parseAccessor, default: 'lat' },
     pointLng: { parse: parseAccessor, default: 'lng' },
     pointColor: { parse: parseAccessor, default: function () { return '#ffffaa'; } },
@@ -48,7 +55,7 @@ AFRAME.registerComponent('globe', {
     pointResolution: { type: 'number', default: 12 },
     pointsMerge: { type: 'boolean', default: false },
     pointsTransitionDuration: { type: 'number', default: 1000 },
-    arcsData: { parse: JSON.parse, default: '[]' },
+    arcsData: { parse: parseJson, default: '[]' },
     arcStartLat: { parse: parseAccessor, default: 'startLat' },
     arcStartLng: { parse: parseAccessor, default: 'startLng' },
     arcEndLat: { parse: parseAccessor, default: 'endLat' },
@@ -64,14 +71,14 @@ AFRAME.registerComponent('globe', {
     arcDashInitialGap: { parse: parseAccessor, default: 0 },
     arcDashAnimateTime: { parse: parseAccessor, default: 0 },
     arcsTransitionDuration: { type: 'number', default: 1000 },
-    polygonsData: { parse: JSON.parse, default: '[]' },
+    polygonsData: { parse: parseJson, default: '[]' },
     polygonGeoJsonGeometry: { parse: parseAccessor, default: 'geometry' },
     polygonCapColor: { parse: parseAccessor, default: function () { return '#ffffaa'; } },
     polygonSideColor: { parse: parseAccessor, default: function () { return '#ffffaa'; } },
     polygonStrokeColor: { parse: parseAccessor, default: null },
     polygonAltitude: { parse: parseAccessor, default: 0.1 },
     polygonsTransitionDuration: { type: 'number', default: 1000 },
-    pathsData: { parse: JSON.parse, default: '[]' },
+    pathsData: { parse: parseJson, default: '[]' },
     pathPoints: { parse: parseAccessor, default: function (pnts) { return pnts; } },
     pathPointLat: { parse: parseAccessor, default: function (arr) { return arr[0]; } },
     pathPointLng: { parse: parseAccessor, default: function (arr) { return arr[1]; } },
@@ -84,7 +91,7 @@ AFRAME.registerComponent('globe', {
     pathDashInitialGap: { parse: parseAccessor, default: 0 },
     pathDashAnimateTime: { parse: parseAccessor, default: 0 },
     pathTransitionDuration: { type: 'number', default: 1000 },
-    hexBinPointsData: { parse: JSON.parse, default: '[]' },
+    hexBinPointsData: { parse: parseJson, default: '[]' },
     hexBinPointLat: { parse: parseAccessor, default: 'lat' },
     hexBinPointLng: { parse: parseAccessor, default: 'lng' },
     hexBinPointWeight: { parse: parseAccessor, default: 1 },
@@ -95,28 +102,28 @@ AFRAME.registerComponent('globe', {
     hexAltitude: { parse: parseAccessor, default: function (d) { return d.sumWeight * 0.01; } },
     hexBinMerge: { type: 'boolean', default: false },
     hexTransitionDuration: { type: 'number', default: 1000 },
-    hexPolygonsData: { parse: JSON.parse, default: '[]' },
+    hexPolygonsData: { parse: parseJson, default: '[]' },
     hexPolygonGeoJsonGeometry: { parse: parseAccessor, default: 'geometry' },
     hexPolygonColor: { parse: parseAccessor, default: function () { return '#ffffaa'; } },
     hexPolygonAltitude: { parse: parseAccessor, default: 0.001 },
     hexPolygonResolution: { parse: parseAccessor, default: 3 },
     hexPolygonMargin: { parse: parseAccessor, default: 0.2 },
     hexPolygonsTransitionDuration: { type: 'number', default: 0 },
-    labelsData: { parse: JSON.parse, default: '[]' },
+    labelsData: { parse: parseJson, default: '[]' },
     labelLat: { parse: parseAccessor, default: 'lat' },
     labelLng: { parse: parseAccessor, default: 'lng' },
     labelAltitude: { parse: parseAccessor, default: 0 },
     labelRotation: { parse: parseAccessor, default: 0 },
     labelText: { parse: parseAccessor, default: 'text' },
     labelSize: { parse: parseAccessor, default: 0.5 },
-    labelTypeFace: { parse: JSON.parse, default: 'null' },
+    labelTypeFace: { parse: parseJson, default: 'null' },
     labelColor: { parse: parseAccessor, default: function () { return 'lightgrey'; } },
     labelResolution: { type: 'number', default: 3 },
     labelIncludeDot: { parse: parseAccessor, default: true },
     labelDotRadius: { parse: parseAccessor, default: 0.1 },
     labelDotOrientation: { parse: parseAccessor, default: function () { return 'bottom'; } },
     labelsTransitionDuration: { type: 'number', default: 1000 },
-    customLayerData: { parse: JSON.parse, default: '[]' },
+    customLayerData: { parse: parseJson, default: '[]' },
     customThreeObject: { parse: parseAccessor, default: null },
     customThreeObjectUpdate: { parse: parseAccessor, default: null }
   },
