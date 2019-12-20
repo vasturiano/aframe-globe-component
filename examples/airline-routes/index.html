@@ -13,12 +13,12 @@
   </head>
   <body>
     <a-scene stats>
-      <a-camera position="0 0 250" wasd-controls="fly: true; acceleration: 2000">
+      <a-camera position="0 0 25" wasd-controls="fly: true; acceleration: 200">
         <a-cursor color="lavender" opacity="0.5"></a-cursor>
       </a-camera>
       <a-sky color="#001"></a-sky>
 
-      <a-entity id="globe" globe="
+      <a-entity id="globe" scale="0.1 0.1 0.1" globe="
         globe-image-url: //unpkg.com/three-globe/example/img/earth-night.jpg;
       "></a-entity>
     </a-scene>
