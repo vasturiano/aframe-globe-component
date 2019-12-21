@@ -146,6 +146,7 @@ Uses [three-globe](https://github.com/vasturiano/three-globe) as the underlying 
 There are also internal methods that can be invoked via the [components object](https://aframe.io/docs/0.8.0/core/component.html#accessing-a-component%E2%80%99s-members-and-methods):
 
 | Method | Arguments | Description |
+| --- | --- | --- |
 | getCoords | lat: <i>number</i>, lng: <i>number</i> [, altitude: <i>number</i>] | Utility method to translate spherical coordinates. Given a pair of latitude/longitude coordinates and optionally altitude (in terms of globe radius units), returns the equivalent `{x, y, z}` cartesian spatial coordinates. |
 | toGeoCoords | { x: <i>number</i>, y: <i>number</i>, z: <i>number</i> } | Utility method to translate cartesian coordinates to the geographic domain. Given a set of 3D cartesian coordinates `{x, y, z}`, returns the equivalent `{lat, lng, altitude}` spherical coordinates. Altitude is defined in terms of globe radius units. |
 
