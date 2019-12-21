@@ -48,7 +48,7 @@
 
       (function moveSpheres() {
         gData.forEach(d => d.lat += 0.2);
-        globeEntity.setAttribute('globe', { customLayerData: gData });
+        globeEntity.setAttribute('globe', 'customLayerData', gData);
         requestAnimationFrame(moveSpheres);
       })();
     </script>
