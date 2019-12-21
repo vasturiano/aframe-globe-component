@@ -6,7 +6,7 @@
 A 3D Globe component for data visualization using [A-Frame](https://aframe.io).
 
 <p align="center">
-     <img width="80%" src="https://vasturiano.github.io/aframe-globe-component/examples/large-graph/preview.png"></a>
+     <img width="70%" src="https://vasturiano.github.io/aframe-globe-component/examples/world-population/preview.png"></a>
 </p>
 
 An A-Frame entity component to to represent data visualization layers on a globe, using a spherical projection.
