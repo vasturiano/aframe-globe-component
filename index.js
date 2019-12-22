@@ -39,9 +39,9 @@ var parseAccessor = function (prop) {
  */
 AFRAME.registerComponent('globe', {
   schema: {
-    label: { parse: parseAccessor, default: 'name' },
-    desc: { parse: parseAccessor, default: 'desc' },
-    onCenterHover: { parse: parseFn, default: function () {} },
+    label: { parse: parseAccessor, default: null },
+    desc: { parse: parseAccessor, default: null },
+    onCenterHover: { parse: parseFn, default: null },
     globeImageUrl: { type: 'string', default: '' },
     bumpImageUrl: { type: 'string', default: '' },
     showAtmosphere: { type: 'boolean', default: true },
@@ -300,25 +300,30 @@ AFRAME.registerComponent('globe', {
   },
 
   tick: function (t, td) {
-    // Update tooltip
-    var centerRaycaster = new THREE.Raycaster();
-    centerRaycaster.linePrecision = 0.2;
-    centerRaycaster.setFromCamera(
-      new THREE.Vector2(0, 0), // Canvas center
-      this.state.cameraObj
-    );
+    var topObject = null;
+    if (this.data.label || this.data.desc || this.data.onCenterHover) {
+      // Update tooltip
+      var centerRaycaster = new THREE.Raycaster();
+      centerRaycaster.linePrecision = 0.2;
+      centerRaycaster.setFromCamera(
+        new THREE.Vector2(0, 0), // Canvas center
+        this.state.cameraObj
+      );
 
-    var intersects = centerRaycaster.intersectObjects(this.globe.children, true)
-      .map(function(o) { return o.object; })
-      .map(getGlobeObj)
-      .filter(function (o) { // Check only globe data layer objects
-        return o.__globeObjType && ['globe', 'atmosphere'].indexOf(o.__globeObjType) === -1;
-      });
+      var intersects = centerRaycaster.intersectObjects(this.globe.children, true)
+        .map(function (o) {
+          return o.object;
+        })
+        .map(getGlobeObj)
+        .filter(function (o) { // Check only globe data layer objects
+          return o.__globeObjType && ['globe', 'atmosphere'].indexOf(o.__globeObjType) === -1;
+        });
 
-    var topObject = intersects.length ? intersects[0] : null;
+      topObject = intersects.length ? intersects[0] : null;
+    }
 
     if (topObject !== this.state.hoverObj) {
-      this.data.onCenterHover(formatObj(topObject), formatObj(this.state.hoverObj));
+      this.data.onCenterHover && this.data.onCenterHover(formatObj(topObject), formatObj(this.state.hoverObj));
 
       this.state.hoverObj = topObject;
       this.state.tooltipEl.setAttribute('value', topObject ? accessorFn(this.data.label)(formatObj(topObject)) || '' : '');

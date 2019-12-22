@@ -154,8 +154,8 @@ There are also internal methods that can be invoked via the [components object](
 
 | Property | Description | Default Value |
 | --- | --- | :--: |
-| label | Globe item accessor function or attribute for name (shown in label). The item's data and object type are passed as an object: `{ data, type }`. | `name` |
-| desc | Globe item accessor function or attribute for description (shown under label). The item's data and object type are passed as an object: `{ data, type }`. | `desc` |
+| label | Globe item accessor function or attribute for name (shown in label). The item's data and object type are passed as an object: `{ data, type }`. | - |
+| desc | Globe item accessor function or attribute for description (shown under label). The item's data and object type are passed as an object: `{ data, type }`. | - |
 | on-center-hover | Callback function for globe item's hover events at the center of the viewport. The item's data and object type (or `null` if there's no object under the central line of sight) is included as the first argument, and the previous item (or null) as second argument. | - |
 
 ### Installation
