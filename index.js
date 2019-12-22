@@ -333,7 +333,10 @@ AFRAME.registerComponent('globe', {
     }
 
     function formatObj (obj) {
-      return !obj ? obj : { type: obj.__globeObjType, data: obj.__data };
+      return !obj ? obj : {
+        type: obj.__globeObjType,
+        data: obj.__globeObjType === 'polygon' ? obj.__data.data : obj.__data
+      };
     }
   }
 });
