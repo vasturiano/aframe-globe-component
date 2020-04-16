@@ -5,8 +5,12 @@ if (typeof AFRAME === 'undefined') {
 }
 
 var accessorFn = require('accessor-fn');
-var ThreeGlobe = require('three-globe');
+if (accessorFn.hasOwnProperty('default')) {
+  // unwrap default export
+  accessorFn = accessorFn.default;
+}
 
+var ThreeGlobe = require('three-globe');
 if (ThreeGlobe.hasOwnProperty('default')) {
   // unwrap default export
   ThreeGlobe = ThreeGlobe.default;
