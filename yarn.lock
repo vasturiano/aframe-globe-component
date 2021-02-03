@@ -2945,7 +2945,7 @@ debug@^4.0.1, debug@^4.1.0, debug@^4.1.1:
   dependencies:
     ms "2.1.2"
 
-"debug@github:ngokevin/debug#noTimestamp":
+debug@ngokevin/debug#noTimestamp:
   version "2.2.0"
   resolved "https://codeload.github.com/ngokevin/debug/tar.gz/ef5f8e66d49ce8bc64c6f282c15f8b7164409e3a"
 
@@ -3188,7 +3188,7 @@ doctrine@^3.0.0:
   dependencies:
     esutils "^2.0.2"
 
-"document-register-element@github:dmarcos/document-register-element#8ccc532b7f3744be954574caf3072a5fd260ca90":
+document-register-element@dmarcos/document-register-element#8ccc532b7f3744be954574caf3072a5fd260ca90:
   version "0.5.4"
   resolved "https://codeload.github.com/dmarcos/document-register-element/tar.gz/8ccc532b7f3744be954574caf3072a5fd260ca90"
 
@@ -7927,7 +7927,7 @@ text-table@^0.2.0:
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
   integrity sha1-f17oI66AUgfACvLfSoTsP8+lcLQ=
 
-"three-bmfont-text@github:dmarcos/three-bmfont-text#1babdf8507c731a18f8af3b807292e2b9740955e":
+three-bmfont-text@dmarcos/three-bmfont-text#1babdf8507c731a18f8af3b807292e2b9740955e:
   version "2.3.0"
   resolved "https://codeload.github.com/dmarcos/three-bmfont-text/tar.gz/1babdf8507c731a18f8af3b807292e2b9740955e"
   dependencies:
@@ -7970,10 +7970,10 @@ three-geojson-geometry@^1.1.2:
     d3-geo "^2.0.1"
     earcut "^2.2.2"
 
-three-globe@^2.14.1:
-  version "2.14.1"
-  resolved "https://registry.yarnpkg.com/three-globe/-/three-globe-2.14.1.tgz#5f5a11035856e0d79c6ab5cbc00f4b00f3df408e"
-  integrity sha512-obC9vF4zxc/QQDqEgh3WhsqTg9khcy4dtbgQ3hdr+UyzDh6VL5AJhP0xcktD5qOWe6T3L43oUp9QLna0BvTY+w==
+three-globe@^2.14.3:
+  version "2.14.3"
+  resolved "https://registry.yarnpkg.com/three-globe/-/three-globe-2.14.3.tgz#a25a7c7495baf1768f9e2f2716b138307ba50aa5"
+  integrity sha512-NkO84GeOEIMkFtN87MjNGjSS8p8XVknULWPUgCR4rtM8pJphzUZAeiNU66iz59M2KSI4+/JF6pPw8ZEMVY4BCA==
   dependencies:
     "@tweenjs/tween.js" "^18.6.4"
     accessor-fn "^1.3.0"

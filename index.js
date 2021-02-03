@@ -346,7 +346,7 @@ AFRAME.registerComponent('globe', {
     if (this.data.label || this.data.desc || this.data.onCenterHover) {
       // Update tooltip
       var centerRaycaster = new THREE.Raycaster();
-      centerRaycaster.linePrecision = 0.2;
+      centerRaycaster.params.Line.threshold = 0.2;
       centerRaycaster.setFromCamera(
         new THREE.Vector2(0, 0), // Canvas center
         this.state.cameraObj
