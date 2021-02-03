@@ -46,6 +46,7 @@
   ],
   "dependencies": {
     "accessor-fn": "^1.3.0",
+    "three": ">=0.88.0",
     "three-globe": "^2.14.3"
   },
   "devDependencies": {
@@ -93,7 +94,6 @@
     "sinon-chai": "^3.3.0",
     "snazzy": "^8.0.0",
     "superagent": "^5.3.1",
-    "three": "*",
     "webpack": "^5.20.1",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.2",
