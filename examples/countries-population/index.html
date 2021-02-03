@@ -25,6 +25,7 @@
       globeEntity.setAttribute('globe', {
         polygonCapColor: () => 'rgba(200, 0, 0, 0.6)',
         polygonSideColor: () => 'rgba(0, 100, 0, 0.05)',
+        polygonStrokeColor: () => '#111',
         label: ({ data: { properties: d }}) => `${d.ADMIN} (${d.ISO_A2})`,
         desc: ({ data: { properties: d }}) => `Population: ${Math.round(+d.POP_EST / 1e4) / 1e2}M`
       });
@@ -33,7 +34,7 @@
         globeEntity.setAttribute('globe', 'polygonsData', countries.features);
 
         setTimeout(() => globeEntity.setAttribute('globe', {
-          polygonTransitionDuration: 4000,
+          polygonsTransitionDuration: 4000,
           polygonAltitude: feat => Math.max(0.1, Math.sqrt(+feat.properties.POP_EST) * 7e-5)
         }), 3000);
       });
