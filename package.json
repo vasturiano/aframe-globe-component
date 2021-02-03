@@ -46,7 +46,7 @@
   ],
   "dependencies": {
     "accessor-fn": "^1.3.0",
-    "three-globe": "^2.13.0"
+    "three-globe": "^2.14.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.10",
