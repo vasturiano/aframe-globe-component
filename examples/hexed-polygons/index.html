@@ -28,6 +28,7 @@
           hexPolygonsData: countries.features,
           hexPolygonResolution: 3,
           hexPolygonMargin: 0.3,
+          hexPolygonAltitude: 0.01,
           hexPolygonColor: () => `#${Math.round(Math.random() * Math.pow(2, 24)).toString(16).padStart(6, '0')}`,
           label: ({ data: { properties: d }}) => `${d.ADMIN} (${d.ISO_A2})`,
           desc: ({ data: { properties: d }}) => `Population: ${d.POP_EST}`
