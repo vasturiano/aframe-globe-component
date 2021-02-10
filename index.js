@@ -357,11 +357,12 @@ AFRAME.registerComponent('globe', {
           return o.object;
         })
         .map(getGlobeObj)
-        .filter(function (o) { // Check only globe data layer objects
-          return o.__globeObjType && ['globe', 'atmosphere'].indexOf(o.__globeObjType) === -1;
+        .filter(function (o) { // Check only globe objects and ignore atmosphere
+          return o.__globeObjType && o.__globeObjType !== 'atmosphere';
         });
 
-      topObject = intersects.length ? intersects[0] : null;
+      // do not raycast right through globe
+      topObject = intersects.length && intersects[0].__globeObjType !== 'globe' ? intersects[0] : null;
     }
 
     if (topObject !== this.state.hoverObj) {
