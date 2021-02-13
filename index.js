@@ -48,6 +48,7 @@ AFRAME.registerComponent('globe', {
     onCenterHover: { parse: parseFn, default: null },
     globeImageUrl: { type: 'string', default: '' },
     bumpImageUrl: { type: 'string', default: '' },
+    showGlobe: { type: 'boolean', default: true },
     showAtmosphere: { type: 'boolean', default: true },
     showGraticules: { type: 'boolean', default: false },
     pointsData: { parse: parseJson, default: [] },
@@ -237,6 +238,7 @@ AFRAME.registerComponent('globe', {
     var globeProps = [
       'globeImageUrl',
       'bumpImageUrl',
+      'showGlobe',
       'showAtmosphere',
       'showGraticules',
       'pointsData',

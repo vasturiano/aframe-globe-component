@@ -20,6 +20,7 @@ Uses [three-globe](https://github.com/vasturiano/three-globe) as the underlying 
 | --- | --- | :--: |
 | globe-image-url | Getter/setter for the URL of the image used in the material that wraps the globe. If no image is provided, the globe is represented as a black sphere. | `null` |
 | bump-image-url | Getter/setter for the URL of the image used to create a [bump map](https://threejs.org/docs/#api/en/materials/MeshStandardMaterial.bumpMap) in the material, to represent the globe's terrain. | `null` |
+| show-globe | Getter/setter for whether to show the globe surface itself. | `true` |
 | show-atmosphere | Getter/setter for whether to show a bright halo surrounding the globe, representing the atmosphere. | `true` |
 | show-graticules | Getter/setter for whether to show a graticule grid demarking latitude and longitude lines at every 10 degrees. | `false` |
 
