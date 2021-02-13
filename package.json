@@ -1,6 +1,6 @@
 {
   "name": "aframe-globe-component",
-  "version": "1.5.6",
+  "version": "1.6.0",
   "description": "A 3D Globe component for A-Frame.",
   "main": "index.js",
   "unpkg": "dist/aframe-globe-component.min.js",
