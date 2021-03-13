@@ -168,7 +168,7 @@ There are also internal methods that can be invoked via the [components object](
 
 | Method | Arguments | Description |
 | --- | --- | --- |
-| globeMaterial | - | Access the internal ThreeJS [MeshPhongMaterial](https://threejs.org/docs/#api/en/materials/MeshPhongMaterial) used to wrap the globe. Can be used for more advanced styling of the globe. |
+| globeMaterial | [material: <i>object</i>] | Getter/setter of the ThreeJS material used to wrap the globe. Can be used for more advanced styling of the globe. |
 | getCoords | lat: <i>number</i>, lng: <i>number</i> [, altitude: <i>number</i>] | Utility method to translate spherical coordinates. Given a pair of latitude/longitude coordinates and optionally altitude (in terms of globe radius units), returns the equivalent `{x, y, z}` cartesian spatial coordinates. |
 | toGeoCoords | { x: <i>number</i>, y: <i>number</i>, z: <i>number</i> } | Utility method to translate cartesian coordinates to the geographic domain. Given a set of 3D cartesian coordinates `{x, y, z}`, returns the equivalent `{lat, lng, altitude}` spherical coordinates. Altitude is defined in terms of globe radius units. |
 

@@ -154,7 +154,13 @@ AFRAME.registerComponent('globe', {
       // Got here before component init -> initialize globe
       this.globe = new ThreeGlobe();
     }
-    return this.globe.globeMaterial();
+
+    var globe = this.globe;
+    var returnVal = globe.globeMaterial.apply(globe, arguments);
+
+    return returnVal === globe
+      ? this // return self, not the inner globe component
+      : returnVal;
   },
 
   getCoords: function () {
