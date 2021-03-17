@@ -23,6 +23,7 @@ Uses [three-globe](https://github.com/vasturiano/three-globe) as the underlying 
 | show-globe | Getter/setter for whether to show the globe surface itself. | `true` |
 | show-atmosphere | Getter/setter for whether to show a bright halo surrounding the globe, representing the atmosphere. | `true` |
 | show-graticules | Getter/setter for whether to show a graticule grid demarking latitude and longitude lines at every 10 degrees. | `false` |
+| on-globe-ready | Callback function to invoke immediately after the globe has been initialized and visible on the scene. | - |
 
 #### Points Layer
 
