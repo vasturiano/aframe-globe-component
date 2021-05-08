@@ -192,8 +192,8 @@ Install and use by directly including the [browser files](dist):
 ```html
 <head>
   <title>My A-Frame Scene</title>
-  <script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
-  <script src="https://unpkg.com/aframe-globe-component/dist/aframe-globe-component.min.js"></script>
+  <script src="https://unpkg.com/aframe"></script>
+  <script src="https://unpkg.com/aframe-globe-component"></script>
 </head>
 
 <body>
