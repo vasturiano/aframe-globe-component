@@ -13,9 +13,7 @@
   </head>
   <body>
     <a-scene stats>
-      <a-camera position="0 0 250" wasd-controls="fly: true; acceleration: 2000">
-        <a-cursor color="lavender" opacity="0.5" raycaster="enabled: false"></a-cursor>
-      </a-camera>
+      <a-camera position="0 0 250" look-controls="pointerLockEnabled: false" wasd-controls="fly: true; acceleration: 500"></a-camera>
       <a-sky color="#001"></a-sky>
 
       <a-entity id="globe" globe="

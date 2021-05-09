@@ -4,35 +4,35 @@ if (typeof AFRAME === 'undefined') {
   throw new Error('Component attempted to register before AFRAME was available.');
 }
 
-var accessorFn = require('accessor-fn');
+let accessorFn = require('accessor-fn');
 if ('default' in accessorFn) {
   // unwrap default export
   accessorFn = accessorFn.default;
 }
 
-var ThreeGlobe = require('three-globe');
+let ThreeGlobe = require('three-globe');
 if ('default' in ThreeGlobe) {
   // unwrap default export
   ThreeGlobe = ThreeGlobe.default;
 }
 
-var parseJson = function (prop) {
+const parseJson = function (prop) {
   return (typeof prop === 'string')
     ? JSON.parse(prop)
     : prop; // already parsed
 };
 
-var parseFn = function (prop) {
+const parseFn = function (prop) {
   if (typeof prop === 'function') return prop; // already a function
-  var geval = eval; // Avoid using eval directly https://github.com/rollup/rollup/wiki/Troubleshooting#avoiding-eval
+  const geval = eval; // Avoid using eval directly https://github.com/rollup/rollup/wiki/Troubleshooting#avoiding-eval
   try {
-    var evalled = geval('(' + prop + ')');
+    const evalled = geval('(' + prop + ')');
     return evalled;
   } catch (e) {} // Can't eval, not a function
   return null;
 };
 
-var parseAccessor = function (prop) {
+const parseAccessor = function (prop) {
   if (!isNaN(parseFloat(prop))) { return parseFloat(prop); } // parse numbers
   if (parseFn(prop)) { return parseFn(prop); } // parse functions
   return prop; // strings
@@ -43,9 +43,8 @@ var parseAccessor = function (prop) {
  */
 AFRAME.registerComponent('globe', {
   schema: {
-    label: { parse: parseAccessor, default: null },
-    desc: { parse: parseAccessor, default: null },
-    onCenterHover: { parse: parseFn, default: null },
+    onHover: { parse: parseFn, default: null },
+    onClick: { parse: parseFn, default: null },
     globeImageUrl: { type: 'string', default: '' },
     bumpImageUrl: { type: 'string', default: '' },
     showGlobe: { type: 'boolean', default: true },
@@ -158,8 +157,8 @@ AFRAME.registerComponent('globe', {
       this.globe = new ThreeGlobe();
     }
 
-    var globe = this.globe;
-    var returnVal = globe.globeMaterial.apply(globe, arguments);
+    const globe = this.globe;
+    const returnVal = globe.globeMaterial.apply(globe, arguments);
 
     return returnVal === globe
       ? this // return self, not the inner globe component
@@ -172,8 +171,8 @@ AFRAME.registerComponent('globe', {
       this.globe = new ThreeGlobe();
     }
 
-    var globe = this.globe;
-    var returnVal = globe.getCoords.apply(globe, arguments);
+    const globe = this.globe;
+    const returnVal = globe.getCoords.apply(globe, arguments);
 
     return returnVal === globe
       ? this // return self, not the inner globe component
@@ -186,8 +185,8 @@ AFRAME.registerComponent('globe', {
       this.globe = new ThreeGlobe();
     }
 
-    var globe = this.globe;
-    var returnVal = globe.toGeoCoords.apply(globe, arguments);
+    const globe = this.globe;
+    const returnVal = globe.toGeoCoords.apply(globe, arguments);
 
     return returnVal === globe
       ? this // return self, not the inner globe component
@@ -195,28 +194,10 @@ AFRAME.registerComponent('globe', {
   },
 
   init: function () {
-    var state = this.state = {}; // Internal state
+    const state = this.state = {}; // Internal state
 
-    // Setup tooltip
-    state.tooltipEl = document.createElement('a-text');
-    state.tooltipEl.setAttribute('position', '0 -0.5 -1'); // Aligned to canvas bottom
-    state.tooltipEl.setAttribute('width', 2);
-    state.tooltipEl.setAttribute('align', 'center');
-    state.tooltipEl.setAttribute('color', 'lavender');
-    state.tooltipEl.setAttribute('value', '');
-
-    // Setup sub-tooltip
-    state.subTooltipEl = document.createElement('a-text');
-    state.subTooltipEl.setAttribute('position', '0 -0.6 -1'); // Aligned to canvas bottom
-    state.subTooltipEl.setAttribute('width', 1.5);
-    state.subTooltipEl.setAttribute('align', 'center');
-    state.subTooltipEl.setAttribute('color', 'lavender');
-    state.subTooltipEl.setAttribute('value', '');
-
-    // Get camera dom element and attach fixed view elements to camera
-    var cameraEl = document.querySelector('a-entity[camera], a-camera');
-    cameraEl.appendChild(state.tooltipEl);
-    cameraEl.appendChild(state.subTooltipEl);
+    // Get camera dom element
+    const cameraEl = document.querySelector('a-entity[camera], a-camera');
 
     // Keep reference to Three camera object
     state.cameraObj = cameraEl.object3D.children
@@ -230,21 +211,25 @@ AFRAME.registerComponent('globe', {
 
     // setup Globe object
     if (!this.globe) this.globe = new ThreeGlobe(); // initialize globe if it doesn't exist yet
-    this.el.object3D.add(this.globe);
+
+    // interaction events
+    // prefer raycaster events over mouseenter/mouseleave because they expose immediately available intersection data via detail.getIntersection()
+    this.el.addEventListener('raycaster-intersected', ev => state.hoverEvent = ev);
+    this.el.addEventListener('raycaster-intersected-cleared', ev => state.hoverEvent = ev);
+    this.el.addEventListener('click', () => state.hoverObj && this.data.onClick && this.data.onClick(formatObjForInteraction(state.hoverObj), state.hoverEvent));
   },
 
   remove: function () {
     // Clean-up elems
-    this.state.tooltipEl.remove();
-    this.state.subTooltipEl.remove();
+    this.el.removeObject3D('globeGroup');
   },
 
   update: function (oldData) {
-    var comp = this;
-    var elData = this.data;
-    var diff = AFRAME.utils.diff(elData, oldData);
+    const comp = this;
+    const elData = this.data;
+    const diff = AFRAME.utils.diff(elData, oldData);
 
-    var globeProps = [
+    const globeProps = [
       'globeImageUrl',
       'bumpImageUrl',
       'showGlobe',
@@ -353,52 +338,50 @@ AFRAME.registerComponent('globe', {
     globeProps
       .filter(function (p) { return p in diff && elData[p] !== undefined; })
       .forEach(function (p) { comp.globe[p](elData[p] !== '' ? elData[p] : null); }); // Convert blank values into nulls
+
+    setTimeout(() => this.el.setObject3D('globeGroup', this.globe)); // Re-bind globe to elem
   },
 
   tick: function (t, td) {
-    var topObject = null;
-    if (this.data.label || this.data.desc || this.data.onCenterHover) {
-      // Update tooltip
-      var centerRaycaster = new THREE.Raycaster();
-      centerRaycaster.params.Line.threshold = 0.2;
-      centerRaycaster.setFromCamera(
-        new THREE.Vector2(0, 0), // Canvas center
-        this.state.cameraObj
-      );
+    const state = this.state;
+    const props = this.data;
 
-      var intersects = centerRaycaster.intersectObjects(this.globe.children, true)
-        .map(function (o) {
-          return o.object;
-        })
-        .map(getGlobeObj)
-        .filter(function (o) { // Check only globe objects and ignore atmosphere
-          return o.__globeObjType && o.__globeObjType !== 'atmosphere';
-        });
+    const hoverDetail = state.hoverEvent && state.hoverEvent.detail;
 
-      // do not raycast right through globe
-      topObject = intersects.length && intersects[0].__globeObjType !== 'globe' ? intersects[0] : null;
+    // Update hover (intersected) object
+    const intersection = hoverDetail
+      ? hoverDetail.getIntersection
+        ? hoverDetail.getIntersection(this.el) // available in raycaster-intersected events
+        : hoverDetail.intersection || undefined // available in mouseenter/mouseleave events (with delayed update)
+      : undefined;
+
+    // Note:
+    // Unfortunately we only have access to the intersected object closer to the camera (1st element in the raycaster intersectObjects result),
+    // there is no ".getIntersections()" method available in the event details. Therefore, we can't prioritize hover certain globe objects over others.
+
+    let topObject = null;
+    if (props.onHover || props.onClick) {
+      // recurse up until globe object is found
+      topObject = intersection ? intersection.object : undefined;
+      while (topObject && !topObject.hasOwnProperty('__globeObjType'))
+        topObject = topObject.parent;
+
+      // ignore certain layers
+      topObject && ['globe', 'atmosphere'].includes(topObject.__globeObjType) && (topObject = null);
     }
 
-    if (topObject !== this.state.hoverObj) {
-      this.data.onCenterHover && this.data.onCenterHover(formatObj(topObject), formatObj(this.state.hoverObj));
-
-      this.state.hoverObj = topObject;
-      this.state.tooltipEl.setAttribute('value', topObject ? accessorFn(this.data.label)(formatObj(topObject)) || '' : '');
-      this.state.subTooltipEl.setAttribute('value', topObject ? accessorFn(this.data.desc)(formatObj(topObject)) || '' : '');
-    }
-
-    //
-
-    function getGlobeObj (obj) {
-      // recursively find globe object from parent chain
-      return !obj.parent || obj.__globeObjType ? obj : getGlobeObj(obj.parent);
-    }
-
-    function formatObj (obj) {
-      return !obj ? obj : {
-        type: obj.__globeObjType,
-        data: obj.__globeObjType === 'polygon' ? obj.__data.data : obj.__data
-      };
+    if (topObject !== state.hoverObj) {
+      props.onHover && props.onHover(formatObjForInteraction(topObject), formatObjForInteraction(state.hoverObj));
+      state.hoverObj = topObject;
     }
   }
 });
+
+//
+
+function formatObjForInteraction (obj) {
+  return !obj ? obj : {
+    type: obj.__globeObjType,
+    data: obj.__globeObjType === 'polygon' ? obj.__data.data : obj.__data
+  };
+}

@@ -179,9 +179,9 @@ There are also internal methods that can be invoked via the [components object](
 
 | Property | Description | Default Value |
 | --- | --- | :--: |
-| label | Globe item accessor function or attribute for name (shown in label). The item's data and object type are passed as an object: `{ data, type }`. | - |
-| desc | Globe item accessor function or attribute for description (shown under label). The item's data and object type are passed as an object: `{ data, type }`. | - |
-| on-center-hover | Callback function for globe item's hover events at the center of the viewport. The item's data and object type (or `null` if there's no object under the central line of sight) is included as the first argument, and the previous item (or null) as second argument. | - |
+| on-hover | Callback function for globe item's hover events, using any [raycaster based](https://aframe.io/docs/1.2.0/components/raycaster.html) controller. The item's data and object type (or `null` if there's no object under the pointer line of sight) is included as the first argument, and the previous item (or null) as second argument. | - |
+| on-click | Callback function for globe item's click events. The object's data and type is included as sole argument. | - |
+
 
 ### Installation
 

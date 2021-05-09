@@ -13,8 +13,19 @@
   </head>
   <body>
     <a-scene stats>
-      <a-camera position="0 0 25" wasd-controls="fly: true; acceleration: 200">
-        <a-cursor color="lavender" opacity="0.5" raycaster="enabled: false"></a-cursor>
+      <a-entity cursor="rayOrigin: mouse; mouseCursorStylesEnabled: true;" raycaster="objects: [globe]; interval: 100"></a-entity>
+      <a-entity laser-controls="hand: left" raycaster="objects: [globe]; interval: 100; lineColor: steelblue; lineOpacity: 0.85; "></a-entity>
+      <a-entity laser-controls="hand: right" raycaster="objects: [globe]; interval: 100; lineColor: steelblue; lineOpacity: 0.85;"></a-entity>
+
+      <a-camera position="0 0 25" look-controls="pointerLockEnabled: false" wasd-controls="fly: true; acceleration: 50">
+        <!-- <a-cursor color="lavender" opacity="0.5" raycaster="objects: [globe]"></a-cursor>-->
+        <a-text
+          id="globe-tooltip"
+          position="0 -0.6 -1"
+          width="2"
+          align="center"
+          color="lavender"
+        ></a-text>
       </a-camera>
       <a-sky color="#001"></a-sky>
 
@@ -29,7 +40,6 @@
 
       const globeEntity = document.getElementById('globe');
       globeEntity.setAttribute('globe', {
-        label: ({ data: d, type }) => type === 'arc' ? `${d.airline}: ${d.srcIata} > ${d.dstIata}`: '',
         arcStartLat: d => +d.srcAirport.lat,
         arcStartLng: d => +d.srcAirport.lng,
         arcEndLat: d => +d.dstAirport.lat,
@@ -44,7 +54,16 @@
         pointColor: () => 'orange',
         pointAltitude: 0,
         pointRadius:0.02,
-        pointsMerge: true
+        pointsMerge: true,
+
+        onHover: hoverObj => {
+          let label = '';
+          if (hoverObj && hoverObj.type === 'arc') {
+            const d = hoverObj.data;
+            label = `${d.airline}: ${d.srcIata} > ${d.dstIata}`;
+          }
+          document.querySelector('#globe-tooltip').setAttribute('value', label);
+        }
       });
 
       // load data

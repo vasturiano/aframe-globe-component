@@ -10,8 +10,25 @@
   </head>
   <body>
     <a-scene stats>
-      <a-camera position="0 0 25" wasd-controls="fly: true; acceleration: 200">
-        <a-cursor color="lavender" opacity="0.5" raycaster="enabled: false"></a-cursor>
+      <a-entity cursor="rayOrigin: mouse; mouseCursorStylesEnabled: true;" raycaster="objects: [globe]; interval: 100"></a-entity>
+      <a-entity laser-controls="hand: left" raycaster="objects: [globe]; interval: 100; lineColor: steelblue; lineOpacity: 0.85; "></a-entity>
+      <a-entity laser-controls="hand: right" raycaster="objects: [globe]; interval: 100; lineColor: steelblue; lineOpacity: 0.85;"></a-entity>
+
+      <a-camera position="0 0 25" look-controls="pointerLockEnabled: false" wasd-controls="fly: true; acceleration: 50">
+        <a-text
+          id="globe-tooltip"
+          position="0 -0.6 -1"
+          width="2"
+          align="center"
+          color="lavender"
+        ></a-text>
+        <a-text
+          id="globe-tooltip-details"
+          position="0 -0.7 -1"
+          width="1"
+          align="center"
+          color="lavender"
+        ></a-text>
       </a-camera>
       <a-sky color="#001"></a-sky>
 
@@ -26,8 +43,16 @@
         polygonCapColor: () => 'rgba(200, 0, 0, 0.6)',
         polygonSideColor: () => 'rgba(0, 100, 0, 0.05)',
         polygonStrokeColor: () => '#111',
-        label: ({ data: { properties: d }}) => `${d.ADMIN} (${d.ISO_A2})`,
-        desc: ({ data: { properties: d }}) => `Population: ${Math.round(+d.POP_EST / 1e4) / 1e2}M`
+        onHover: hoverObj => {
+          let label = '', desc = '';
+          if (hoverObj && hoverObj.type === 'polygon') {
+            const d = hoverObj.data.properties;
+            label = `${d.ADMIN} (${d.ISO_A2})`;
+            desc = `Population: ${Math.round(+d.POP_EST / 1e4) / 1e2}M`
+          }
+          document.querySelector('#globe-tooltip').setAttribute('value', label);
+          document.querySelector('#globe-tooltip-details').setAttribute('value', desc);
+        }
       });
 
       fetch('../datasets/ne_110m_admin_0_countries.geojson').then(res => res.json()).then(countries => {
