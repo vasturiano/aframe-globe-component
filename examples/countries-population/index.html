@@ -6,30 +6,33 @@
     <meta name="description" content="Example for 3D Globe component."></meta>
 
     <script src="//unpkg.com/aframe"></script>
+    <script src="//unpkg.com/aframe-extras/dist/aframe-extras.min.js"></script>
     <script src="../../dist/aframe-globe-component.min.js"></script>
   </head>
   <body>
     <a-scene stats>
-      <a-entity cursor="rayOrigin: mouse; mouseCursorStylesEnabled: true;" raycaster="objects: [globe]; interval: 100"></a-entity>
-      <a-entity laser-controls="hand: left" raycaster="objects: [globe]; interval: 100; lineColor: steelblue; lineOpacity: 0.85; "></a-entity>
-      <a-entity laser-controls="hand: right" raycaster="objects: [globe]; interval: 100; lineColor: steelblue; lineOpacity: 0.85;"></a-entity>
+      <a-entity position="0 0 25" movement-controls="fly: true; speed: 0.5">
+        <a-entity cursor="rayOrigin: mouse; mouseCursorStylesEnabled: true;" raycaster="objects: [globe]; interval: 100"></a-entity>
+        <a-entity laser-controls="hand: left" raycaster="objects: [globe]; interval: 100; lineColor: steelblue; lineOpacity: 0.85; "></a-entity>
+        <a-entity laser-controls="hand: right" raycaster="objects: [globe]; interval: 100; lineColor: steelblue; lineOpacity: 0.85;"></a-entity>
 
-      <a-camera position="0 0 25" look-controls="pointerLockEnabled: false" wasd-controls="fly: true; acceleration: 50">
-        <a-text
-          id="globe-tooltip"
-          position="0 -0.6 -1"
-          width="2"
-          align="center"
-          color="lavender"
-        ></a-text>
-        <a-text
-          id="globe-tooltip-details"
-          position="0 -0.7 -1"
-          width="1"
-          align="center"
-          color="lavender"
-        ></a-text>
-      </a-camera>
+        <a-camera look-controls="pointerLockEnabled: false" wasd-controls="enabled: false">
+          <a-text
+            id="globe-tooltip"
+            position="0 -0.6 -1"
+            width="2"
+            align="center"
+            color="lavender"
+          ></a-text>
+          <a-text
+            id="globe-tooltip-details"
+            position="0 -0.7 -1"
+            width="1"
+            align="center"
+            color="lavender"
+          ></a-text>
+        </a-camera>
+      </a-entity>
       <a-sky color="#001"></a-sky>
 
       <a-entity id="globe" scale="0.1 0.1 0.1" globe="

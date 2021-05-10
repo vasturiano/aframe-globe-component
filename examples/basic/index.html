@@ -10,9 +10,9 @@
     <script src="../../dist/aframe-globe-component.min.js"></script>
   </head>
   <body>
-    <a-scene stats>
+    <a-scene stats embedded>
       <a-entity position="0 0 25" movement-controls="fly: true; speed: 0.5">
-        <a-camera look-controls="pointerLockEnabled: false" wasd-controls="enabled: false"></a-camera>
+        <a-camera position="0 0 0" look-controls="pointerLockEnabled: false" wasd-controls="enabled: false"></a-camera>
       </a-entity>
       <a-sky color="#001"></a-sky>
 
