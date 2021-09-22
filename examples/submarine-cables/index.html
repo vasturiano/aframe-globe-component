@@ -36,7 +36,7 @@
 
     <script>
       // from https://github.com/telegeography/www.submarinecablemap.com
-      fetch('//raw.githubusercontent.com/telegeography/www.submarinecablemap.com/master/public/api/v2/cable/cable-geo.json')
+      fetch('//raw.githubusercontent.com/telegeography/www.submarinecablemap.com/master/web/public/api/v3/cable/cable-geo.json')
         .then(r =>r.json())
         .then(cablesGeo => {
           let cablePaths = [];
@@ -56,7 +56,7 @@
             pathDashGap: 0.008,
             pathDashAnimateTime: 12000,
             onHover: hoverObj => document.querySelector('#globe-tooltip').setAttribute('value',
-              hoverObj && hoverObj.type === 'path' ? hoverObj.data.properties.slug : ''
+              hoverObj && hoverObj.type === 'path' ? hoverObj.data.properties.name : ''
             )
           });
         });
