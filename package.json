@@ -47,7 +47,7 @@
   "dependencies": {
     "accessor-fn": "1",
     "three": ">=0.88.0",
-    "three-globe": "^2.18"
+    "three-globe": "^2.21"
   },
   "devDependencies": {
     "@babel/cli": "^7.16.0",

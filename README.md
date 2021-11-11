@@ -50,7 +50,7 @@ Uses [three-globe](https://github.com/vasturiano/three-globe) as the underlying 
 | arc-start-lng | Arc object accessor function, attribute or a numeric constant for the line's start longitude coordinate. | `startLng` |
 | arc-end-lat | Arc object accessor function, attribute or a numeric constant for the line's end latitude coordinate. | `endLat` |
 | arc-end-lng | Arc object accessor function, attribute or a numeric constant for the line's end longitude coordinate. | `endLng` |
-| arc-color | Arc object accessor function or attribute for the line's color. Also supports color gradients by passing an array of colors. | `() => '#ffffaa'` |
+| arc-color | Arc object accessor function or attribute for the line's color. Also supports color gradients by passing an array of colors, or a color interpolator function. | `() => '#ffffaa'` |
 | arc-altitude | Arc object accessor function, attribute or a numeric constant for the arc's maximum altitude (ocurring at the half-way distance between the two points) in terms of globe radius units (`0` = 0 altitude (ground line), `1` = globe radius). If a value of `null` or `undefined` is used, the altitude is automatically set proportionally to the distance between the two points, according to the scale set in `arc-altitude-auto-scale`.  | `null` |
 | arc-altitude-auto-scale | Arc object accessor function, attribute or a numeric constant for the scale of the arc's automatic altitude, in terms of units of the great-arc distance between the two points. A value of `1` indicates the arc should be as high as its length on the ground. Only applicable if `arc-altitude` is not set. | 0.5 |
 | arc-stroke | Arc object accessor function, attribute or a numeric constant for the line's diameter, in angular degrees. A value of `null` or `undefined` will render a [ThreeJS Line](https://threejs.org/docs/#api/objects/Line) whose width is constant (`1px`) regardless of the camera distance. Otherwise, a [TubeGeometry](https://threejs.org/docs/#api/en/geometries/TubeGeometry) is used. | `null` |
@@ -87,7 +87,7 @@ Uses [three-globe](https://github.com/vasturiano/three-globe) as the underlying 
 | path-point-lng | Path point object accessor function, attribute or a numeric constant for the longitude coordinate. | `arr => arr[1]` |
 | path-point-alt | Path point object accessor function, attribute or a numeric constant for the point altitude, in terms of globe radius units (`0` = 0 altitude (ground), `1` = globe radius). | 0.001 |
 | path-resolution | Getter/setter for the path's angular resolution, in lat/lng degrees. If the ground distance (excluding altitude) between two adjacent path points is larger than this value, the line segment will be interpolated in order to approximate the curvature of the sphere surface. Lower values yield more perfectly curved lines, at the cost of performance. | 2 |
-| path-color | Path object accessor function or attribute for the line's color. Also supports color gradients by passing an array of colors. Transparent colors are not supported in Fat Lines with set width. | `() => '#ffffaa'` |
+| path-color | Path object accessor function or attribute for the line's color. Also supports color gradients by passing an array of colors, or a color interpolator function. Transparent colors are not supported in Fat Lines with set width. | `() => '#ffffaa'` |
 | path-stroke | Path object accessor function, attribute or a numeric constant for the line's diameter, in angular degrees. A value of `null` or `undefined` will render a [ThreeJS Line](https://threejs.org/docs/#api/objects/Line) whose width is constant (`1px`) regardless of the camera distance. Otherwise, a [FatLine](https://github.com/vasturiano/three-fatline) is used. | `null` |
 | path-dash-length | Path object accessor function, attribute or a numeric constant for the length of the dashed segments in the path line, in terms of relative length of the whole line (`1` = full line length). | 1 |
 | path-dash-gap | Path object accessor function, attribute or a numeric constant for the length of the gap between dash segments, in terms of relative line length. | 0 |
@@ -139,6 +139,20 @@ Uses [three-globe](https://github.com/vasturiano/three-globe) as the underlying 
 | tile-material | Tile object accessor function, attribute or material object for the [ThreeJS material](https://threejs.org/docs/#api/en/materials/Material) used to style the segment's surface. | `() => new MeshLambertMaterial({ color: '#ffbb88' })` |
 | tile-curvature-resolution | Tile object accessor function, attribute or a numeric constant for the resolution (in angular degrees) of the surface curvature. The finer the resolution, the more the tile geometry is fragmented into smaller faces to approximate the spheric surface, at the cost of performance. | 5 |
 | tiles-transition-duration | Getter/setter for duration (ms) of the transition to animate tile changes involving geometry modifications. A value of `0` will move the tiles immediately to their final position. New tiles are animated by scaling them from the centroid outwards. | 1000 |
+
+### Rings Layer
+
+| Property | Description | Default Value |
+| --- | --- | :--: |
+| rings-data | Getter/setter for the list of self-propagating ripple rings to represent in the rings map layer. Each data point is displayed as an animated set of concentric circles that propagate outwards from (or inwards to) a central point through the spherical surface. | `[]` |
+| ring-lat | Ring object accessor function, attribute or a numeric constant for each circle's center latitude coordinate. | `lat` |
+| ring-lng | Ring object accessor function, attribute or a numeric constant for each circle's center longitude coordinate. | `lng` |
+| ring-altitude | Ring object accessor function, attribute or a numeric constant for the circle's altitude in terms of globe radius units. | 0.0015 |
+| ring-color | Ring object accessor function or attribute for the stroke color of each ring. Also supports radial color gradients by passing an array of colors, or a color interpolator function. | `() => '#ffffaa'` |
+| ring-resolution | Getter/setter for the geometric resolution of each circle, expressed in how many slice segments to divide the circumference. Higher values yield smoother circles. | 64 |
+| ring-max-radius | Ring object accessor function, attribute or a numeric constant for the maximum outer radius of the circles, at which the rings stop propagating and are removed. Defined in angular degrees. | 2 |
+| ring-propagation-speed | Ring object accessor function, attribute or a numeric constant for the propagation velocity of the rings, defined in degrees/second. Setting a negative value will invert the direction and cause the rings to propagate inwards from the `max-radius`. | 1 |
+| ring-repeat-period | Ring object accessor function, attribute or a numeric constant for the interval of time (in ms) to wait between consecutive auto-generated concentric circles. A value less or equal than `0` will disable the repetition and emit a single ring. | 700 |
 
 #### Labels Layer
 
