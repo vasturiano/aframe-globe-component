@@ -173,19 +173,30 @@ Uses [three-globe](https://github.com/vasturiano/three-globe) as the underlying 
 | label-dot-orientation | Label object accessor function or attribute for the orientation of the label if the dot marker is present. Possible values are `right`, `top` and `bottom`. | `() => 'bottom'` |
 | labels-transition-duration | Getter/setter for duration (ms) of the transition to animate label changes involving position modifications (`lat`, `lng`, `altitude`, `rotation`). A value of `0` will move the labels immediately to their final position. New labels are animated by scaling their size. | 1000 |
 
+### Objects Layer
+
+| Property | Description | Default Value |
+| --- | --- | :--: |
+| objects-data | Getter/setter for the list of custom 3D objects to represent in the objects layer. Each object is rendered according to the `objectThreeObject` method. | `[]` |
+| object-lat | Object accessor function, attribute or a numeric constant for the latitude coordinate of the object's position. | `lat` |
+| object-lng | Object accessor function, attribute or a numeric constant for the longitude coordinate of the object's position. | `lng` |
+| object-altitude | Object accessor function, attribute or a numeric constant for the altitude coordinate of the object's position, in terms of globe radius units. | 0.01 |
+| object-three-object | Object accessor function or attribute for defining a custom 3d object to render as part of the objects map layer. Should return an instance of [ThreeJS Object3d](https://threejs.org/docs/index.html#api/core/Object3D). | A yellow sphere |
+
 #### Custom Layer
 
 | Property | Description | Default Value |
 | --- | --- | :--: |
 | custom-layer-data | Getter/setter for the list of items to represent in the custom map layer. Each item is rendered according to the `customThreeObject` method. | `[]` |
-| custom-three-object | Object accessor function or attribute for generating a custom 3d object to render as part of the custom map layer. Should return an instance of [ThreeJS Object3d](https://threejs.org/docs/index.html#api/core/Object3D). The callback method's signature includes the object's data as well as the globe radius: `customThreeObject((objData, globeRadius) => { ... })`. | `null` |
-| custom-three-object-update | Object accessor function or attribute for updating an existing custom 3d object with new data. This can be used for performance improvement on data updates as the objects don't need to be removed and recreated at each update. The callback method's signature includes the object to be update, its new data and the globe radius: `customThreeObjectUpdate((obj, objData, globeRadius) => { ... })`. | `null` |
+| custom-three-object | Object accessor function or attribute for generating a custom 3d object to render as part of the custom map layer. Should return an instance of [ThreeJS Object3d](https://threejs.org/docs/index.html#api/core/Object3D). | `null` |
+| custom-three-object-update | Object accessor function or attribute for updating an existing custom 3d object with new data. This can be used for performance improvement on data updates as the objects don't need to be removed and recreated at each update. The callback method's signature includes the object to be update and its new data: `customThreeObjectUpdate((obj, objData) => { ... })`. | `null` |
 
 There are also internal methods that can be invoked via the [components object](https://aframe.io/docs/0.8.0/core/component.html#accessing-a-component%E2%80%99s-members-and-methods):
 
 | Method | Arguments | Description |
 | --- | --- | --- |
 | globeMaterial | [material: <i>object</i>] | Getter/setter of the ThreeJS material used to wrap the globe. Can be used for more advanced styling of the globe. |
+| getGlobeRadius | - | Returns the cartesian distance of a globe radius in absolute spatial units. |
 | getCoords | lat: <i>number</i>, lng: <i>number</i> [, altitude: <i>number</i>] | Utility method to translate spherical coordinates. Given a pair of latitude/longitude coordinates and optionally altitude (in terms of globe radius units), returns the equivalent `{x, y, z}` cartesian spatial coordinates. |
 | toGeoCoords | { x: <i>number</i>, y: <i>number</i>, z: <i>number</i> } | Utility method to translate cartesian coordinates to the geographic domain. Given a set of 3D cartesian coordinates `{x, y, z}`, returns the equivalent `{lat, lng, altitude}` spherical coordinates. Altitude is defined in terms of globe radius units. |
 

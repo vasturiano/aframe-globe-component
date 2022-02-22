@@ -154,6 +154,11 @@ AFRAME.registerComponent('globe', {
     labelDotRadius: { parse: parseAccessor, default: 0.1 },
     labelDotOrientation: { parse: parseAccessor, default: function () { return 'bottom'; } },
     labelsTransitionDuration: { type: 'number', default: 1000 },
+    objectsData: { parse: parseJson, default: [] },
+    objectLat: { parse: parseAccessor, default: 'lat' },
+    objectLng: { parse: parseAccessor, default: 'lng'  },
+    objectAltitude: { parse: parseAccessor, default: 0.01 },
+    objectThreeObject: { parse: parseAccessor, default: null },
     customLayerData: { parse: parseJson, default: [] },
     customThreeObject: { parse: parseAccessor, default: null },
     customThreeObjectUpdate: { parse: parseAccessor, default: null }
@@ -172,6 +177,15 @@ AFRAME.registerComponent('globe', {
     return returnVal === globe
       ? this // return self, not the inner globe component
       : returnVal;
+  },
+
+  getGlobeRadius: function() {
+    if (!this.globe) {
+      // Got here before component init -> initialize globe
+      this.globe = new ThreeGlobe();
+    }
+    const globe = this.globe;
+    return globe.getGlobeRadius.apply(globe, arguments);
   },
 
   getCoords: function () {
@@ -348,6 +362,11 @@ AFRAME.registerComponent('globe', {
       'labelDotRadius',
       'labelDotOrientation',
       'labelsTransitionDuration',
+      'objectsData',
+      'objectLat',
+      'objectLng',
+      'objectAltitude',
+      'objectThreeObject',
       'customLayerData',
       'customThreeObject',
       'customThreeObjectUpdate'
