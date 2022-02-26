@@ -158,7 +158,7 @@ AFRAME.registerComponent('globe', {
     objectLat: { parse: parseAccessor, default: 'lat' },
     objectLng: { parse: parseAccessor, default: 'lng'  },
     objectAltitude: { parse: parseAccessor, default: 0.01 },
-    objectThreeObject: { parse: parseAccessor, default: null },
+    objectThreeObject: { parse: parseAccessor, default: undefined },
     customLayerData: { parse: parseJson, default: [] },
     customThreeObject: { parse: parseAccessor, default: null },
     customThreeObjectUpdate: { parse: parseAccessor, default: null }
