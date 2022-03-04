@@ -14,6 +14,22 @@ Uses [three-globe](https://github.com/vasturiano/three-globe) as the underlying 
 
 ### API
 
+* [Globe Layer](#globe-layer)
+* [Points Layer](#points-layer)
+* [Arcs Layer](#arcs-layer)
+* [Polygons Layer](#polygons-layer)
+* [Paths Layer](#paths-layer)
+* [Hex Bin Layer](#hex-bin-layer)
+* [Hexed Polygons Layer](#hexed-polygons-layer)
+* [Tiles Layer](#tiles-layer)
+* [Rings Layer](#rings-layer)
+* [Labels Layer](#labels-layer)
+* [HTML Elements Layer](#html-elements-layer)
+* [3D Objects Layer](#3d-objects-layer)
+* [Custom Layer](#custom-layer)
+* [Interaction](#interaction)
+* [Utility Methods](#utility-methods)
+
 #### Globe Layer
 
 | Property | Description | Default Value |
@@ -173,7 +189,7 @@ Uses [three-globe](https://github.com/vasturiano/three-globe) as the underlying 
 | label-dot-orientation | Label object accessor function or attribute for the orientation of the label if the dot marker is present. Possible values are `right`, `top` and `bottom`. | `() => 'bottom'` |
 | labels-transition-duration | Getter/setter for duration (ms) of the transition to animate label changes involving position modifications (`lat`, `lng`, `altitude`, `rotation`). A value of `0` will move the labels immediately to their final position. New labels are animated by scaling their size. | 1000 |
 
-### Objects Layer
+### 3D Objects Layer
 
 | Property | Description | Default Value |
 | --- | --- | :--: |
@@ -191,6 +207,15 @@ Uses [three-globe](https://github.com/vasturiano/three-globe) as the underlying 
 | custom-three-object | Object accessor function or attribute for generating a custom 3d object to render as part of the custom map layer. Should return an instance of [ThreeJS Object3d](https://threejs.org/docs/index.html#api/core/Object3D). | `null` |
 | custom-three-object-update | Object accessor function or attribute for updating an existing custom 3d object with new data. This can be used for performance improvement on data updates as the objects don't need to be removed and recreated at each update. The callback method's signature includes the object to be update and its new data: `customThreeObjectUpdate((obj, objData) => { ... })`. | `null` |
 
+#### Interaction
+
+| Property | Description | Default Value |
+| --- | --- | :--: |
+| on-hover | Callback function for globe item's hover events, using any [raycaster based](https://aframe.io/docs/1.2.0/components/raycaster.html) controller. The item's data and object type (or `null` if there's no object under the pointer line of sight) is included as the first argument, and the previous item (or null) as second argument. | - |
+| on-click | Callback function for globe item's click events. The object's data and type is included as sole argument. | - |
+
+#### Utility Methods
+
 There are also internal methods that can be invoked via the [components object](https://aframe.io/docs/0.8.0/core/component.html#accessing-a-component%E2%80%99s-members-and-methods):
 
 | Method | Arguments | Description |
@@ -199,14 +224,6 @@ There are also internal methods that can be invoked via the [components object](
 | getGlobeRadius | - | Returns the cartesian distance of a globe radius in absolute spatial units. |
 | getCoords | lat: <i>number</i>, lng: <i>number</i> [, altitude: <i>number</i>] | Utility method to translate spherical coordinates. Given a pair of latitude/longitude coordinates and optionally altitude (in terms of globe radius units), returns the equivalent `{x, y, z}` cartesian spatial coordinates. |
 | toGeoCoords | { x: <i>number</i>, y: <i>number</i>, z: <i>number</i> } | Utility method to translate cartesian coordinates to the geographic domain. Given a set of 3D cartesian coordinates `{x, y, z}`, returns the equivalent `{lat, lng, altitude}` spherical coordinates. Altitude is defined in terms of globe radius units. |
-
-#### Interaction
-
-| Property | Description | Default Value |
-| --- | --- | :--: |
-| on-hover | Callback function for globe item's hover events, using any [raycaster based](https://aframe.io/docs/1.2.0/components/raycaster.html) controller. The item's data and object type (or `null` if there's no object under the pointer line of sight) is included as the first argument, and the previous item (or null) as second argument. | - |
-| on-click | Callback function for globe item's click events. The object's data and type is included as sole argument. | - |
-
 
 ### Installation
 
