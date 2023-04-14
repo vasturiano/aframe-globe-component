@@ -6,16 +6,15 @@
     <meta name="description" content="Example for 3D Globe component."></meta>
 
     <script src="//unpkg.com/aframe"></script>
-    <script src="//unpkg.com/aframe-extras/dist/aframe-extras.min.js"></script>
     <script src="../../dist/aframe-globe-component.min.js"></script>
   </head>
   <body>
-    <a-scene stats>
-      <a-entity position="0 0 250" movement-controls="fly: true; speed: 5">
-        <a-camera look-controls="pointerLockEnabled: false" wasd-controls="enabled: false"></a-camera>
-      </a-entity>
-      <a-sky color="#001"></a-sky>
-
+    <a-scene stats background="color: #001">
+      <a-camera
+        position="0 0 250"
+        look-controls="pointerLockEnabled: false"
+        wasd-controls="fly: true; acceleration: 500;"
+      ></a-camera>
       <a-entity id="globe" globe="
         globe-image-url: //unpkg.com/three-globe/example/img/earth-night.jpg;
       "></a-entity>

@@ -6,17 +6,16 @@
     <meta name="description" content="Example for 3D Globe component."></meta>
 
     <script src="//unpkg.com/aframe"></script>
-    <script src="//unpkg.com/aframe-extras/dist/aframe-extras.min.js"></script>
     <script src="../../dist/aframe-globe-component.min.js"></script>
   </head>
   <body>
-    <a-scene stats>
-      <a-entity position="0 0 250" movement-controls="fly: true; speed: 5">
+    <a-scene stats background="color: #001">
+      <a-entity position="0 0 250">
         <a-entity cursor="rayOrigin: mouse; mouseCursorStylesEnabled: true;" raycaster="objects: [globe]; interval: 100"></a-entity>
         <a-entity laser-controls="hand: left" raycaster="objects: [globe]; interval: 100; lineColor: steelblue; lineOpacity: 0.85; "></a-entity>
         <a-entity laser-controls="hand: right" raycaster="objects: [globe]; interval: 100; lineColor: steelblue; lineOpacity: 0.85;"></a-entity>
 
-        <a-camera look-controls="pointerLockEnabled: false" wasd-controls="enabled: false">
+        <a-camera look-controls="pointerLockEnabled: false" wasd-controls="fly: true; acceleration: 500;">
           <a-text
             id="globe-tooltip"
             position="0 -0.6 -1"
@@ -33,8 +32,6 @@
           ></a-text>
         </a-camera>
       </a-entity>
-      <a-sky color="#001"></a-sky>
-
       <a-entity id="globe" globe="
         globe-image-url: //unpkg.com/three-globe/example/img/earth-dark.jpg;
       "></a-entity>
