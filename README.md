@@ -197,6 +197,8 @@ Uses [three-globe](https://github.com/vasturiano/three-globe) as the underlying 
 | object-lat | Object accessor function, attribute or a numeric constant for the latitude coordinate of the object's position. | `lat` |
 | object-lng | Object accessor function, attribute or a numeric constant for the longitude coordinate of the object's position. | `lng` |
 | object-altitude | Object accessor function, attribute or a numeric constant for the altitude coordinate of the object's position, in terms of globe radius units. | 0.01 |
+| object-rotation | Object accessor function, attribute or a `{x, y, z}` object for the object's rotation (in degrees). Each dimension is optional, allowing for rotation only in some axes. Rotation is applied in the order **X**->**Y**->**Z**. | - |
+| object-faces-surface | Object accessor function, attribute or a boolean constant for whether the object should be rotated to face (away from) the globe surface (`true`), or be left in its original universe orientation (`false`). | `true` |
 | object-three-object | Object accessor function or attribute for defining a custom 3d object to render as part of the objects map layer. Should return an instance of [ThreeJS Object3d](https://threejs.org/docs/index.html#api/core/Object3D). | A yellow sphere |
 
 #### Custom Layer
