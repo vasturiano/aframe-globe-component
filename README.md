@@ -111,6 +111,22 @@ Uses [three-globe](https://github.com/vasturiano/three-globe) as the underlying 
 | path-dash-animate-time | Path object accessor function, attribute or a numeric constant for the time duration (in `ms`) to animate the motion of dash positions from the start to the end point for a full line length. A value of `0` disables the animation. | 0 |
 | path-transition-duration | Getter/setter for duration (ms) of the transition to animate path changes. A value of `0` will move the paths immediately to their final position. New paths are animated from start to end. | 1000 |
 
+### Heatmaps Layer
+
+| Property | Description | Default |
+| --- | --- | :--: |
+| heatmaps-data | Getter/setter for the list of heatmap datasets to represent in the heatmaps map layer. Each set of points is represented as an individual global heatmap with varying color and/or altitude, according to the point density. It uses a [Gaussian KDE](https://en.wikipedia.org/wiki/Kernel_density_estimation) to perform the density estimation, based on the great-arc distance between points. | `[]` |
+| heatmap-points | Heatmap object accessor function, attribute or an array for the set of points that define the heatmap. By default, each point is assumed to be a 2-position array (`[<lat>, <lon>]`). This default behavior can be modified using the `heatmapPointLat` and `heatmapPointLng` methods. | `pnts => pnts` |
+| heatmap-point-lat | Heatmap point object accessor function, attribute or a numeric constant for the latitude coordinate. | `arr => arr[0]` |
+| heatmap-point-lng | Heatmap point object accessor function, attribute or a numeric constant for the longitude coordinate. | `arr => arr[1]` |
+| heatmap-point-weight | Heatmap point object accessor function, attribute or a numeric constant for the weight of the point. The weight of a point determines its influence on the density of the surrounding area. | 1 |
+| heatmap-bandwidth | Heatmap object accessor function, attribute or a numeric constant for the heatmap bandwidth, in angular degrees. The bandwidth is an internal parameter of the [Gaussian kernel function](https://en.wikipedia.org/wiki/Gaussian_function) and defines how localized is the influence of a point on distant locations. A narrow bandwidth leads to a more spiky representation, while a broad one has smoother curves. | 4 |
+| heatmap-color-fn | Heatmap object accessor function or attribute for the color interpolator function to represent density in the heatmap. This function should receive a number between `0` and `1` (or potentially higher if saturation > 1), and return a color string. | [Turbo colormap](https://blog.research.google/2019/08/turbo-improved-rainbow-colormap-for.html) interpolator with fading opacity |
+| heatmap-color-saturation | Heatmap object accessor function, attribute or a numeric constant for the color scale saturation. The saturation is a multiplier of the normalized density value (`[0,1]`) before passing it to the color interpolation function. It can be used to dampen outlier peaks in density and bring the data floor into view. | 1.5 |
+| heatmap-base-altitude | Heatmap object accessor function, attribute or a numeric constant for the heatmap base floor altitude in terms of globe radius units (`0` = 0 altitude, `1` = globe radius). | 0.01 |
+| heatmap-top-altitude | Heatmap object accessor function, attribute or a numeric constant for the heatmap top peak altitude in terms of globe radius units (`0` = 0 altitude, `1` = globe radius). An equal value to the base altitude will yield a surface flat heatmap. If a top altitude is set, the variations in density will be used to define the altitude curves between base and top. | - |
+| heatmaps-transition-duration | Getter/setter for duration (ms) of the transition to animate heatmap changes. A value of `0` will set the heatmap colors/altitudes immediately in their final position. New heatmaps are animated by rising them from the ground up and gently fading in through the color scale. | 0 |
+
 #### Hex Bin Layer
 
 | Property | Description | Default Value |
