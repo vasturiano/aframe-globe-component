@@ -19,6 +19,7 @@ Uses [three-globe](https://github.com/vasturiano/three-globe) as the underlying 
 * [Arcs Layer](#arcs-layer)
 * [Polygons Layer](#polygons-layer)
 * [Paths Layer](#paths-layer)
+* [Heatmaps Layer](#heatmaps-layer)
 * [Hex Bin Layer](#hex-bin-layer)
 * [Hexed Polygons Layer](#hexed-polygons-layer)
 * [Tiles Layer](#tiles-layer)
