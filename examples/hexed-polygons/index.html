@@ -45,6 +45,7 @@
           hexPolygonsData: countries.features,
           hexPolygonResolution: 3,
           hexPolygonMargin: 0.3,
+          hexPolygonUseDots: true,
           hexPolygonAltitude: 0.01,
           hexPolygonColor: () => `#${Math.round(Math.random() * Math.pow(2, 24)).toString(16).padStart(6, '0')}`,
           onHover: hoverObj => {
