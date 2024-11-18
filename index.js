@@ -106,7 +106,7 @@ AFRAME.registerComponent('globe', {
     heatmapPointLat: { parse: parseAccessor, default: function (arr) { return arr[0]; } },
     heatmapPointLng: { parse: parseAccessor, default: function (arr) { return arr[1]; } },
     heatmapPointWeight: { parse: parseAccessor, default: 1 },
-    heatmapBandwidth: { parse: parseAccessor, default: 4 },
+    heatmapBandwidth: { parse: parseAccessor, default: 2.5 },
     heatmapColorFn: { parse: parseAccessor, default: undefined },
     heatmapColorSaturation: { parse: parseAccessor, default: 1.5 },
     heatmapBaseAltitude: { parse: parseAccessor, default: 0.01 },
