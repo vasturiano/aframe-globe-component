@@ -5,8 +5,6 @@
     <title>A-Frame 3D Globe Component Example</title>
     <meta name="description" content="Example for 3D Globe component."></meta>
 
-    <script src="//unpkg.com/d3"></script>
-
     <script src="//unpkg.com/aframe"></script>
     <script src="../../dist/aframe-globe-component.min.js"></script>
   </head>
@@ -39,8 +37,11 @@
       "></a-entity>
     </a-scene>
 
-    <script>
-      const colorScale = d3.scaleSequentialSqrt(d3.interpolateYlOrRd);
+    <script type="module">
+      import { scaleSequentialSqrt } from 'https://esm.sh/d3-scale';
+      import { interpolateYlOrRd } from 'https://esm.sh/d3-scale-chromatic';
+
+      const colorScale = scaleSequentialSqrt(interpolateYlOrRd);
 
       // GDP per capita (avoiding countries with small pop)
       const getVal = feat => feat.properties.GDP_MD_EST / Math.max(1e5, feat.properties.POP_EST);

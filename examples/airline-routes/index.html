@@ -5,9 +5,6 @@
     <title>A-Frame 3D Globe Component Example</title>
     <meta name="description" content="Example for 3D Globe component."></meta>
 
-    <script src="//unpkg.com/d3-dsv"></script>
-    <script src="//unpkg.com/index-array-by"></script>
-
     <script src="//unpkg.com/aframe"></script>
     <script src="../../dist/aframe-globe-component.min.js"></script>
   </head>
@@ -35,7 +32,10 @@
       "></a-entity>
     </a-scene>
 
-    <script>
+    <script type="module">
+      import { csvParseRows } from 'https://esm.sh/d3-dsv';
+      import indexBy from 'https://esm.sh/index-array-by';
+
       const COUNTRY = 'United States';
       const OPACITY = 0.22;
 
@@ -73,9 +73,9 @@
 
       Promise.all([
         fetch('https://raw.githubusercontent.com/jpatokal/openflights/master/data/airports.dat').then(res => res.text())
-          .then(d => d3.csvParseRows(d, airportParse)),
+          .then(d => csvParseRows(d, airportParse)),
         fetch('https://raw.githubusercontent.com/jpatokal/openflights/master/data/routes.dat').then(res => res.text())
-          .then(d => d3.csvParseRows(d, routeParse))
+          .then(d => csvParseRows(d, routeParse))
       ]).then(([airports, routes]) => {
 
         const byIata = indexBy(airports, 'iata', false);

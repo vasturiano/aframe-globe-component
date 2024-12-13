@@ -5,9 +5,6 @@
     <title>A-Frame 3D Globe Component Example</title>
     <meta name="description" content="Example for 3D Globe component."></meta>
 
-    <script src="//unpkg.com/d3"></script>
-    <script src="//unpkg.com/d3-dsv"></script>
-
     <script src="//unpkg.com/aframe"></script>
     <script src="../../dist/aframe-globe-component.min.js"></script>
   </head>
@@ -24,8 +21,12 @@
       "></a-entity>
     </a-scene>
 
-    <script>
-      const weightColor = d3.scaleSequentialSqrt(d3.interpolateYlOrRd)
+    <script type="module">
+      import { csvParse } from 'https://esm.sh/d3-dsv';
+      import { scaleSequentialSqrt } from 'https://esm.sh/d3-scale';
+      import { interpolateYlOrRd } from 'https://esm.sh/d3-scale-chromatic';
+
+      const weightColor = scaleSequentialSqrt(interpolateYlOrRd)
         .domain([0, 1e7]);
 
       const globeEntity = document.getElementById('globe');
@@ -39,7 +40,7 @@
       });
 
       fetch('../datasets/world_population.csv').then(res => res.text())
-        .then(csv => d3.csvParse(csv, ({ lat, lng, pop }) => ({ lat: +lat, lng: +lng, pop: +pop })))
+        .then(csv => csvParse(csv, ({ lat, lng, pop }) => ({ lat: +lat, lng: +lng, pop: +pop })))
         .then(data => globeEntity.setAttribute('globe', 'hexBinPointsData', data));
     </script>
 
