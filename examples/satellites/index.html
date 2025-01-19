@@ -18,10 +18,9 @@
 
   <a-entity id="globe" scale="0.1 0.1 0.1" globe="
     globe-image-url: //unpkg.com/three-globe/example/img/earth-blue-marble.jpg;
-    object-lat: lat;
-    object-lng: lng;
-    object-altitude: alt;
-    object-faces-surface: false;
+    particle-lat: lat;
+    particle-lng: lng;
+    particle-altitude: alt;
   "></a-entity>
 </a-scene>
 
@@ -29,17 +28,12 @@
   import * as satellite from 'https://esm.sh/satellite.js';
 
   const EARTH_RADIUS_KM = 6371; // km
-  const SAT_SIZE = 100; // km
   const TIME_STEP = 3 * 1000; // per frame
 
   const globeEntity = document.getElementById('globe');
 
-  const globeRadius = 100;
-  const satGeometry = new THREE.OctahedronGeometry(SAT_SIZE * globeRadius / EARTH_RADIUS_KM / 2, 0);
-  const satMaterial = new THREE.MeshLambertMaterial({ color: 'palegreen', transparent: true, opacity: 0.7 });
-
   globeEntity.setAttribute('globe', {
-    objectThreeObject: () => new THREE.Mesh(satGeometry, satMaterial)
+    particlesColor: () => 'palegreen'
   });
 
   fetch('//unpkg.com/three-globe/example/satellites/space-track-leo.txt').then(r => r.text()).then(rawData => {
@@ -47,8 +41,7 @@
     const satData = tleData.map(([name, ...tle]) => ({
       satrec: satellite.twoline2satrec(...tle),
       name: name.trim().replace(/^0 /, '')
-    }))
-    .slice(0, 800);
+    }));
 
     // time ticker
     let time = new Date();
@@ -69,7 +62,7 @@
         }
       });
 
-      globeEntity.setAttribute('globe', 'objectsData', satData);
+      globeEntity.setAttribute('globe', 'particlesData', [satData.filter(d => !isNaN(d.lat) && !isNaN(d.lng) && !isNaN(d.alt))]);
     })();
   });
 </script>

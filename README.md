@@ -23,6 +23,7 @@ Uses [three-globe](https://github.com/vasturiano/three-globe) as the underlying 
 * [Hex Bin Layer](#hex-bin-layer)
 * [Hexed Polygons Layer](#hexed-polygons-layer)
 * [Tiles Layer](#tiles-layer)
+* [Particles Layer](#particles-layer)
 * [Rings Layer](#rings-layer)
 * [Labels Layer](#labels-layer)
 * [HTML Elements Layer](#html-elements-layer)
@@ -174,6 +175,20 @@ Uses [three-globe](https://github.com/vasturiano/three-globe) as the underlying 
 | tile-material | Tile object accessor function, attribute or material object for the [ThreeJS material](https://threejs.org/docs/#api/en/materials/Material) used to style the segment's surface. | `() => new MeshLambertMaterial({ color: '#ffbb88' })` |
 | tile-curvature-resolution | Tile object accessor function, attribute or a numeric constant for the resolution (in angular degrees) of the surface curvature. The finer the resolution, the more the tile geometry is fragmented into smaller faces to approximate the spheric surface, at the cost of performance. | 5 |
 | tiles-transition-duration | Getter/setter for duration (ms) of the transition to animate tile changes involving geometry modifications. A value of `0` will move the tiles immediately to their final position. New tiles are animated by scaling them from the centroid outwards. | 1000 |
+
+### Particles Layer
+
+| Property | Description | Default Value |
+| --- | --- | :--: |
+| particles-data | Getter/setter for the list of particle sets to represent in the particles map layer. Each particle set is displayed as a group of [Points](https://threejs.org/docs/#api/en/objects/Points). Each point in the group is a geometry vertex and can be individually positioned anywhere relative to the globe. | `[]` |
+| particles-list | Particle set accessor function or attribute for the list of particles in the set. By default, the data structure is expected to be an array of arrays of individual particle objects. | `d => d` |
+| particle-lat | Particle object accessor function, attribute or a numeric constant for the latitude coordinate. | `lat` |
+| particle-lng | Particle object accessor function, attribute or a numeric constant for the longitude coordinate. | `lng` |
+| particle-altitude | Particle object accessor function, attribute or a numeric constant for the altitude in terms of globe radius units. | 0.01 |
+| particles-size | Particle set accessor function, attribute or a numeric constant for the size of all the particles in the group. | 0.5 |
+| particles-size-attenuation | Particle set accessor function, attribute or a boolean constant for whether the size of each particle on the screen should be attenuated according to the distance to the camera. | `true` |
+| particles-color | Particle set accessor function or attribute for the color of all the particles in the group. This setting will be ignored if `particlesTexture` is defined. | `white` |
+| particles-texture | Particle set accessor function or attribute for the [Texture](https://threejs.org/docs/#api/en/textures/Texture) to be applied to all the particles in the group. | - |
 
 ### Rings Layer
 
