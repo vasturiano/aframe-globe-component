@@ -185,7 +185,7 @@ Uses [three-globe](https://github.com/vasturiano/three-globe) as the underlying 
 | particle-lat | Particle object accessor function, attribute or a numeric constant for the latitude coordinate. | `lat` |
 | particle-lng | Particle object accessor function, attribute or a numeric constant for the longitude coordinate. | `lng` |
 | particle-altitude | Particle object accessor function, attribute or a numeric constant for the altitude in terms of globe radius units. | 0.01 |
-| particles-size | Particle set accessor function, attribute or a numeric constant for the size of all the particles in the group. | 0.5 |
+| particles-size | Particle set accessor function, attribute or a numeric constant for the size of all the particles in the group. | 0.05 |
 | particles-size-attenuation | Particle set accessor function, attribute or a boolean constant for whether the size of each particle on the screen should be attenuated according to the distance to the camera. | `true` |
 | particles-color | Particle set accessor function or attribute for the color of all the particles in the group. This setting will be ignored if `particlesTexture` is defined. | `white` |
 | particles-texture | Particle set accessor function or attribute for the [Texture](https://threejs.org/docs/#api/en/textures/Texture) to be applied to all the particles in the group. | - |
