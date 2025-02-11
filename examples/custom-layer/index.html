@@ -41,14 +41,16 @@
           new THREE.SphereGeometry(d.radius),
           new THREE.MeshLambertMaterial({ color: d.color })
         ),
-        customThreeObjectUpdate: (obj, d) => {
-          Object.assign(obj.position, globeEntity.components.globe.getCoords(d.lat, d.lng, d.alt));
-        }
+        customThreeObjectUpdate: (obj, d) =>
+          Object.assign(obj.position, globeEntity.components.globe.getCoords(d.lat, d.lng, d.alt))
       });
 
       (function moveSpheres() {
         gData.forEach(d => d.lat += 0.2);
-        globeEntity.setAttribute('globe', 'customLayerData', gData);
+        globeEntity.setAttribute('globe', 'customLayerData', gData.slice());
+        globeEntity.setAttribute('globe', 'customThreeObjectUpdate', (obj, d) =>
+          Object.assign(obj.position, globeEntity.components.globe.getCoords(d.lat, d.lng, d.alt))
+        );
         requestAnimationFrame(moveSpheres);
       })();
     </script>
