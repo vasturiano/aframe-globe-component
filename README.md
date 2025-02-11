@@ -263,37 +263,22 @@ There are also internal methods that can be invoked via the [components object](
 
 ### Installation
 
-#### Browser
-
-Install and use by directly including the [browser files](dist):
-
+```js
+import 'aframe';
+import 'aframe-globe-component';
+```
+or using a *script* tag
 ```html
-<head>
-  <title>My A-Frame Scene</title>
-  <script src="https://unpkg.com/aframe"></script>
-  <script src="https://unpkg.com/aframe-globe-component"></script>
-</head>
-
+<script src="//unpkg.com/aframe"></script>
+<script src="//unpkg.com/aframe-globe-component"></script>
+```
+then
+```html
 <body>
   <a-scene>
     <a-entity globe="points-data: [{ lat: 9.2, lng: 49.37 }, { lat: 23, lng: -125.4 }]"></a-entity>
   </a-scene>
 </body>
-```
-
-#### npm
-
-Install via npm:
-
-```bash
-npm install aframe-globe-component
-```
-
-Then require and use.
-
-```js
-require('aframe');
-require('aframe-globe-component');
 ```
 
 ## Giving Back
