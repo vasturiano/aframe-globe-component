@@ -1,19 +1,8 @@
-/* global AFRAME */
+import ThreeGlobe from 'three-globe';
 
+/* global AFRAME */
 if (typeof AFRAME === 'undefined') {
   throw new Error('Component attempted to register before AFRAME was available.');
-}
-
-let accessorFn = require('accessor-fn');
-if ('default' in accessorFn) {
-  // unwrap default export
-  accessorFn = accessorFn.default;
-}
-
-let ThreeGlobe = require('three-globe');
-if ('default' in ThreeGlobe) {
-  // unwrap default export
-  ThreeGlobe = ThreeGlobe.default;
 }
 
 const parseJson = function (prop) {
