@@ -269,8 +269,8 @@ import 'aframe-globe-component';
 ```
 or using a *script* tag
 ```html
-<script src="//unpkg.com/aframe"></script>
-<script src="//unpkg.com/aframe-globe-component"></script>
+<script src="//cdn.jsdelivr.net/npm/aframe"></script>
+<script src="//cdn.jsdelivr.net/npm/aframe-globe-component"></script>
 ```
 then
 ```html
