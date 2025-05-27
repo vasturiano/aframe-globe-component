@@ -155,7 +155,7 @@ if (!AFRAME.components.hasOwnProperty('globe')) {
       labelsData: { parse: parseJson, default: [] },
       labelLat: { parse: parseAccessor, default: 'lat' },
       labelLng: { parse: parseAccessor, default: 'lng' },
-      labelAltitude: { parse: parseAccessor, default: 0 },
+      labelAltitude: { parse: parseAccessor, default: 0.002 },
       labelRotation: { parse: parseAccessor, default: 0 },
       labelText: { parse: parseAccessor, default: 'text' },
       labelSize: { parse: parseAccessor, default: 0.5 },
