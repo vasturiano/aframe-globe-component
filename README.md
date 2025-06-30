@@ -43,6 +43,7 @@ Uses [three-globe](https://github.com/vasturiano/three-globe) as the underlying 
 | show-atmosphere | Getter/setter for whether to show a bright halo surrounding the globe, representing the atmosphere. | `true` |
 | atmosphere-color | Getter/setter for the color of the atmosphere. | `lightskyblue` |
 | atmosphere-altitude | Getter/setter for the max altitude of the atmosphere, in terms of globe radius units. | 0.15 |
+| globe-curvature-resolution | Getter/setter of the resolution in angular degrees of the sphere curvature. | 4 |
 | on-globe-ready | Callback function to invoke immediately after the globe has been initialized and visible on the scene. | - |
 
 #### Points Layer
