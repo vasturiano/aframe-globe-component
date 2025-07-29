@@ -45,20 +45,20 @@
   ],
   "dependencies": {
     "three": ">=0.154",
-    "three-globe": "^2.43"
+    "three-globe": "^2.44"
   },
   "peerDependencies": {
     "aframe": "*"
   },
   "devDependencies": {
-    "@babel/core": "^7.27.7",
-    "@babel/preset-env": "^7.27.2",
+    "@babel/core": "^7.28.0",
+    "@babel/preset-env": "^7.28.0",
     "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-commonjs": "^28.0.6",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-terser": "^0.4.4",
     "rimraf": "^6.0.1",
-    "rollup": "^4.44.1"
+    "rollup": "^4.46.2"
   },
   "engines": {
     "node": ">=12"
